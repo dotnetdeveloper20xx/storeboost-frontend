@@ -374,3 +374,74 @@ export const useCancelBooking = () => {
 | Encapsulated Behavior  | Booking logic lives in hooks, not UI files                                |
 | User Feedback          | Button reflects live status: “Booking…”, “Cancelling…”, or disabled       |
 | Single Source of Truth | UI derives from API state via React Query                                |
+
+
+# 📘 Step 7: Routing Setup with React Router
+
+## ✅ What we did:
+
+1. Installed React Router DOM:
+```bash
+npm install react-router-dom
+```
+
+2. Wrapped the app with `<BrowserRouter>` in `main.tsx`:
+
+```tsx
+import { BrowserRouter } from "react-router-dom";
+
+<BrowserRouter>
+  <QueryClientProvider client={queryClient}>
+    <App />
+  </QueryClientProvider>
+</BrowserRouter>
+```
+
+3. Set up routes in `App.tsx` using `<Routes>` and `<Route>`:
+
+```tsx
+<Routes>
+  <Route path="/" element={<AllSlotsPage />} />
+  <Route path="/available" element={<AvailableSlotsPage />} />
+  <Route path="/admin" element={<AdminPage />} />
+</Routes>
+```
+
+4. Created a navigation bar using `<Link>` components:
+
+```tsx
+<Link to="/">All Slots</Link>
+<Link to="/available">Available Slots</Link>
+<Link to="/admin">Admin</Link>
+```
+
+---
+
+## ❓ Why we did this:
+
+### React Router
+- Enables single-page app routing without full page reloads.
+- Each route loads its own page-level component.
+- Works well with our folder structure (each feature has a `pages/` subfolder).
+
+### Navigation Bar
+- Lets users navigate between All, Available, and Admin views.
+- Responsive, fixed-top header using Tailwind classes.
+
+---
+
+## 🛠 How it helps:
+
+- Makes the app modular and easier to extend with new pages (e.g., login, settings).
+- Keeps all route-level code in one place (`App.tsx`).
+- Encourages separation between UI layout and route logic.
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle              | How                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| Page-based Routing     | Each page (All, Available, Admin) has its own route + component      |
+| Decoupled Navigation   | Routing is defined once, layout is shared                           |
+| Scalable Architecture  | Easily supports adding protected routes, nested routes, etc.        |
