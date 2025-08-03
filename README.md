@@ -638,3 +638,81 @@ createSlot(payload, {
 | Component-local State  | Uses `useState` instead of global notification system               |
 | Accessibility & Clarity| Message is visible, semantic, styled with Tailwind                 |
 
+# 📘 Step 11: Git & GitHub Setup and Push Workflow
+
+## ✅ What we did:
+
+1. Initialized a local Git repo:
+```bash
+git init
+```
+
+2. Created a GitHub repository named `storeboost-frontend` at:
+[https://github.com/dotnetdeveloper20xx/storeboost-frontend](https://github.com/dotnetdeveloper20xx/storeboost-frontend)
+
+3. Linked the local repo to GitHub:
+```bash
+git remote add origin https://github.com/dotnetdeveloper20xx/storeboost-frontend.git
+```
+
+4. Renamed the default branch to `main`:
+```bash
+git branch -M main
+```
+
+5. Pulled remote `README.md` and merged conflicts if needed:
+```bash
+git pull origin main --allow-unrelated-histories
+# resolved README.md conflict
+# git add README.md && git commit -m "Resolve merge conflict"
+```
+
+6. Pushed the full local project to GitHub:
+```bash
+git push -u origin main
+```
+
+7. Added `.gitignore` to prevent pushing build artifacts and sensitive files:
+
+```gitignore
+node_modules/
+dist/
+.env
+.vscode/
+*.log
+```
+---
+
+## ❓ Why we did this:
+
+### Git & GitHub
+- Version control is critical for tracking changes and collaboration.
+- GitHub is the central source of truth and hosts your project repo.
+
+### Branch Naming
+- `main` is now the standard default branch name (instead of `master`).
+
+### Merge Conflict Resolution
+- Important learning step: local and remote both had README.md — required manual resolution.
+
+### `.gitignore`
+- Prevents clutter and accidental pushes of sensitive or unnecessary files.
+
+---
+
+## 🛠 How it helps:
+
+- Enables GitHub collaboration, pull requests, CI/CD, and history tracking.
+- Keeps the repo clean and professional.
+- Allows other developers to clone and contribute instantly.
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle              | How                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| Version Control        | Used Git to track project history                                   |
+| Remote Source of Truth | All changes pushed to GitHub repo                                   |
+| Clean Repository       | Used `.gitignore` to filter out build/system/junk files             |
+| Conflict Resolution    | Manually merged `README.md` and understood fetch/push behavior      |
