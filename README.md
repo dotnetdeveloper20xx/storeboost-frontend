@@ -116,6 +116,63 @@ npx tailwindcss init -p
 | Clean Architecture     | React Query hooks for fetching, Zustand store for minimal app state  |
 
 
+# 📘 Step 3: Tailwind CSS Configuration & Styling Setup
 
+## ✅ What we did:
+
+1. Updated `tailwind.config.js` to define which files Tailwind should scan for class names:
+```js
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: { extend: {} },
+  plugins: [],
+}
+```
+
+2. Added Tailwind directives to `src/index.css`:
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+3. Verified Tailwind setup by styling the `<App />` component with Tailwind utility classes.
+
+---
+
+## ❓ Why we did this:
+
+### Tailwind CSS
+- Offers **utility-first** styling: `p-4`, `text-xl`, `rounded-lg`, etc.
+- Removes the need for writing custom CSS or managing component SCSS files.
+- Enforces consistency across all UI components.
+- Built for responsiveness and theming from the ground up.
+
+### Content Paths in `tailwind.config.js`
+- Tailwind needs to know **which files to scan** for class names.
+- Limiting to `src/**/*.{js,ts,jsx,tsx}` avoids bloated CSS output.
+
+### `@tailwind` directives in `index.css`
+- These import Tailwind’s styles at the base level of the application.
+- Allows us to use Tailwind utilities in any component.
+
+---
+
+## 🛠 How it helps:
+
+- Enables **rapid prototyping** and production-quality UIs using only class names.
+- Scales better than CSS modules or styled-components in team settings.
+- Developers can focus on UI behavior instead of writing/revising CSS.
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle              | How                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| Utility-First Design   | All UIs are composed with Tailwind utilities                        |
+| Consistency by Default | All layouts follow Tailwind’s spacing, font, and color scale        |
+| Developer Velocity     | Design + layout done in JSX, with zero context switching            |
+| Zero CSS Debt          | Avoids legacy `styles.css`, `theme.scss`, or unused class bloat     |
 
 
