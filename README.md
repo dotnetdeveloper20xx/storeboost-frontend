@@ -175,4 +175,64 @@ export default {
 | Developer Velocity     | Design + layout done in JSX, with zero context switching            |
 | Zero CSS Debt          | Avoids legacy `styles.css`, `theme.scss`, or unused class bloat     |
 
+# 📘 Step 4: Project Folder Structure & Architecture
 
+## ✅ What we did:
+
+Created a modular, scalable folder structure following feature-sliced and atomic principles:
+
+```
+src/
+├── app/               # Global setup: Zustand store, React Query client
+├── features/slots/    # All slot-related logic and UI
+│   ├── api/           # API methods (axios)
+│   ├── hooks/         # React Query & Zustand hooks
+│   ├── components/    # SlotCard, SlotForm, etc.
+│   ├── pages/         # Route-level components (AllSlotsPage, AdminPage)
+│   └── model/         # Shared types like Slot interface
+├── shared/ui/         # Reusable UI components (e.g., CustomToaster)
+├── styles/            # Tailwind/base styles (optional)
+├── main.tsx           # App entry with providers
+└── App.tsx            # App shell with routes
+```
+
+---
+
+## ❓ Why we did this:
+
+### 🔸 Feature-Sliced Architecture
+- Code is grouped by **feature** not by type.
+- This improves modularity and encapsulation.
+- Example: `features/slots/` contains everything related to booking slots.
+
+### 🔸 Separation of Concerns
+- `api/`: Axios functions for backend calls
+- `hooks/`: Custom hooks for data fetching or state
+- `components/`: UI pieces that use those hooks
+- `pages/`: Routed views used in React Router
+
+### 🔸 Shared Layer (`shared/ui/`)
+- Cross-feature UI elements (e.g., buttons, toasters)
+- Enables design system reuse without duplication
+
+### 🔸 app/
+- Holds **global application context**, like Zustand store and React Query client setup.
+
+---
+
+## 🛠 How it helps:
+
+- Makes the project easy to scale and test
+- Enables feature-based collaboration (e.g., 2 devs working on different features)
+- Reduces context switching by keeping related logic together
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle              | How                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| Feature Encapsulation  | All slot logic (API, UI, hooks) lives in `features/slots/`          |
+| Separation of Concerns | `app/`, `shared/`, and `features/*` divide responsibilities clearly |
+| Scalability            | Easy to add more features like users, analytics, etc.               |
+| Maintainability        | Small, reusable, self-contained modules                             |
