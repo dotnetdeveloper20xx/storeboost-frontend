@@ -298,3 +298,79 @@ export const useAllSlots = () => {
 | Composable UI          | `SlotCard` used in lists, admin views, etc.                         |
 | Declarative Data Fetching | React Query + Axios makes fetch logic expressive and composable   |
 
+# 📘 Step 6: Booking & Canceling Slots with `useMutation`
+
+## ✅ What we did:
+
+1. Created two API methods for booking and cancelling:
+
+```ts
+// slotApi.ts
+export const bookSlot = (id: string) => axios.post(`/api/slots/${id}/book`);
+export const cancelBooking = (id: string) => axios.post(`/api/slots/${id}/cancel`);
+```
+
+2. Built two React Query mutation hooks:
+
+```ts
+// useBookSlot.ts
+export const useBookSlot = () => {
+  const queryClient = useQueryClient();
+  return useMutation(bookSlot, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['slots']);
+    }
+  });
+};
+```
+
+```ts
+// useCancelBooking.ts
+export const useCancelBooking = () => {
+  const queryClient = useQueryClient();
+  return useMutation(cancelBooking, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['slots']);
+    }
+  });
+};
+```
+
+3. Updated the `SlotCard` component:
+- Displays “Book Slot” button if available
+- Displays “Cancel Booking” button if already booked
+- Reacts to loading state, disables while mutating
+
+---
+
+## ❓ Why we did this:
+
+### React Query Mutations
+- `useMutation()` is perfect for writing/updating server-side data.
+- Can be optimistically updated, retried, or rolled back.
+
+### SlotCard Button Logic
+- Centralizes user interaction within a single component.
+- Keeps UI reactive based on slot state (`isBooked`).
+
+### Cache Invalidation
+- After a booking or cancel action, we invalidate `['slots']` so the slot list re-fetches with correct state.
+
+---
+
+## 🛠 How it helps:
+
+- Gives real-time UX feedback (button label + disabled state).
+- Ensures backend and frontend stay in sync without manual refetch.
+- Simple hook-based structure supports reuse across pages.
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle              | How                                                                      |
+|------------------------|---------------------------------------------------------------------------|
+| Declarative Updates    | `useMutation` reflects server state changes without managing loading state manually |
+| Encapsulated Behavior  | Booking logic lives in hooks, not UI files                                |
+| User Feedback          | Button reflects live status: “Booking…”, “Cancelling…”, or disabled       |
+| Single Source of Truth | UI derives from API state via React Query                                |
