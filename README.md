@@ -573,3 +573,68 @@ function groupSlotsByDate(slots: Slot[]): Record<string, Slot[]> {
 | Grouped Presentation   | Data grouped before rendering for easier UI digestion               |
 | Declarative Mapping    | Pure function (`groupSlotsByDate`) separates logic from rendering   |
 | Separation of Concerns | Grouping logic is modular, reusable, and isolated from JSX          |
+
+# 📘 Step 10: Replacing Toast Notifications with Banner-Style Success Messages
+
+## ✅ What we did:
+
+1. Removed `toast.success(...)` from the slot creation form.
+2. Added a `useState` hook to track success messages:
+```tsx
+const [successMessage, setSuccessMessage] = useState<string | null>(null);
+```
+
+3. Updated the `onSubmit` handler:
+```tsx
+createSlot(payload, {
+  onSuccess: () => {
+    reset();
+    setSuccessMessage("✅ Slot created successfully!");
+    setTimeout(() => setSuccessMessage(null), 4000);
+  }
+});
+```
+
+4. Displayed the banner conditionally in JSX:
+```tsx
+{successMessage && (
+  <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded text-sm font-medium">
+    {successMessage}
+  </div>
+)}
+```
+
+---
+
+## ❓ Why we did this:
+
+### Visual UX Alignment
+- Toasts can be dismissed or missed; banners are fixed in context.
+- Banners fit naturally above a form, showing feedback inline.
+
+### Minimal Library Dependence
+- Reduces reliance on `react-hot-toast`.
+- Keeps feedback fully contained inside the form component.
+
+### Controlled Feedback Lifecycle
+- `setTimeout` auto-dismisses the message after 4 seconds.
+- Easy to expand into full alert components if needed.
+
+---
+
+## 🛠 How it helps:
+
+- Makes success feedback persistent, styled, and consistent.
+- Gives users confidence that their action succeeded without needing to chase floating toasts.
+- Helps with accessibility and UI predictability.
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle              | How                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| Contextual UX          | Banners appear where the user just acted (top of form)              |
+| Component-local State  | Uses `useState` instead of global notification system               |
+| Accessibility & Clarity| Message is visible, semantic, styled with Tailwind                 |
+
