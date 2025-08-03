@@ -236,3 +236,65 @@ src/
 | Separation of Concerns | `app/`, `shared/`, and `features/*` divide responsibilities clearly |
 | Scalability            | Easy to add more features like users, analytics, etc.               |
 | Maintainability        | Small, reusable, self-contained modules                             |
+
+# 📘 Step 5: API Integration – Fetching Slots with React Query
+
+## ✅ What we did:
+
+1. Created an API method to call `GET /slots`
+```ts
+// src/features/slots/api/slotApi.ts
+export const fetchAllSlots = async () => {
+  const response = await axios.get('/api/slots');
+  return response.data.data;
+};
+```
+
+2. Built a custom React Query hook to use this method:
+```ts
+// src/features/slots/hooks/useAllSlots.ts
+import { useQuery } from '@tanstack/react-query';
+export const useAllSlots = () => {
+  return useQuery(['slots'], fetchAllSlots);
+};
+```
+
+3. Created a `SlotCard` component to display each slot.
+4. Rendered all slots using the `useAllSlots()` hook in the main UI.
+
+---
+
+## ❓ Why we did this:
+
+### React Query
+- Handles **server state**: fetching, caching, background updates.
+- Automatically manages loading, error, and refetching states.
+- Eliminates need for manual `useEffect + useState` combo.
+
+### Axios
+- Encapsulates HTTP logic so UI code stays clean.
+- Future-proofed for token headers, retries, etc.
+
+### SlotCard Component
+- Visual display of one slot (date, time, bookings, status).
+- Decoupled UI that consumes props and handles conditional styles.
+
+---
+
+## 🛠 How it helps:
+
+- All API calls are declarative and cached by React Query.
+- Data stays fresh without reloading the page.
+- UI is reactive and automatically re-renders on slot updates.
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle              | How                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| Server State Separation| API state handled by React Query, not by local component state       |
+| Reusability            | `useAllSlots()` can be used across pages (home, admin, available)   |
+| Composable UI          | `SlotCard` used in lists, admin views, etc.                         |
+| Declarative Data Fetching | React Query + Axios makes fetch logic expressive and composable   |
+
