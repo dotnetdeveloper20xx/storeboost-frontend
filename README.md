@@ -1,73 +1,54 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 📘 Step 1: Project Initialization with Vite + React + TypeScript
 
-Currently, two official plugins are available:
+## ✅ What we did:
+We bootstrapped a new React project using Vite and TypeScript with the following commands:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm create vite@latest storeboost-frontend -- --template react-ts
+cd storeboost-frontend
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ❓ Why we did this:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-=======
-# storeboost-frontend
->>>>>>> bb2630ac9b13f7cc3eefc3e4e03d96ab2aeba982
+### 🔷 Vite
+- Offers ultra-fast startup and HMR (Hot Module Replacement)
+- Uses `esbuild` — faster builds and dev server than Webpack (used in CRA)
+- Lightweight, zero-config out of the box
+
+### 🔷 TypeScript
+- Enforces strong typing and self-documenting code
+- Helps avoid runtime errors by catching mistakes early
+- Improves IDE experience (autocomplete, type hints)
+
+### 🔷 Naming
+We named the project `storeboost-frontend` to align with the backend and product domain (`StoreBoost` appointment system).
+
+---
+
+## 🛠 How it helps:
+
+- Enables usage of modern tools like Zustand, React Query
+- Supports scalable folder structures and type-safe API interaction
+- Fast reloads and modular builds improve dev efficiency
+
+---
+
+## 📁 Files generated:
+
+- `index.html`, `main.tsx`, `App.tsx`: App entry
+- `vite.config.ts`: Vite config
+- `tsconfig.json`: TypeScript setup
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle | How |
+|----------|-----|
+| Modern DX | Chose Vite over CRA for speed and developer experience |
+| Type Safety | Used TypeScript for type-first architecture |
+| Lean & Scalable | Started from minimal base to control dependencies |
