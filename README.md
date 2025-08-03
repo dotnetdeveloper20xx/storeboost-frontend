@@ -509,3 +509,67 @@ const schema = z.object({
 | UX Feedback            | Inline errors + disable on submit state                            |
 | Code Reuse             | Schema + validation can be shared across client/server if needed   |
 
+# 📘 Step 9: Admin View – Group Slots by Date
+
+## ✅ What we did:
+
+1. In `AdminPage.tsx`, transformed the fetched slots using a `groupSlotsByDate()` utility:
+
+```ts
+function groupSlotsByDate(slots: Slot[]): Record<string, Slot[]> {
+  return slots.reduce((acc, slot) => {
+    const date = new Date(slot.startTime).toLocaleDateString(undefined, {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    acc[date] = acc[date] || [];
+    acc[date].push(slot);
+    return acc;
+  }, {} as Record<string, Slot[]>);
+}
+```
+
+2. Rendered each group with a heading and a list of `SlotCard`s:
+
+```tsx
+{Object.entries(grouped).map(([date, slots]) => (
+  <div key={date}>
+    <h3>{date}</h3>
+    <div className="grid ...">
+      {slots.map(slot => <SlotCard key={slot.id} slot={slot} />)}
+    </div>
+  </div>
+))}
+```
+
+---
+
+## ❓ Why we did this:
+
+### UX Enhancement
+- Admins can easily scan which days are overloaded or underbooked.
+- Visually groups related slots together (e.g., by date).
+
+### Data Normalization
+- All slot dates are normalized to local calendar format using `toLocaleDateString()`.
+- Prevents mis-sorting when displaying raw timestamps.
+
+---
+
+## 🛠 How it helps:
+
+- Makes the admin view easier to navigate and digest.
+- Shows which slots belong to which days at a glance.
+- Prepares UI for future calendar, analytics, or filters.
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle              | How                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| Grouped Presentation   | Data grouped before rendering for easier UI digestion               |
+| Declarative Mapping    | Pure function (`groupSlotsByDate`) separates logic from rendering   |
+| Separation of Concerns | Grouping logic is modular, reusable, and isolated from JSX          |
