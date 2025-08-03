@@ -445,3 +445,67 @@ import { BrowserRouter } from "react-router-dom";
 | Page-based Routing     | Each page (All, Available, Admin) has its own route + component      |
 | Decoupled Navigation   | Routing is defined once, layout is shared                           |
 | Scalable Architecture  | Easily supports adding protected routes, nested routes, etc.        |
+
+# 📘 Step 8: Admin Slot Creation Form with Validation
+
+## ✅ What we did:
+
+1. Created `SlotForm.tsx` using `react-hook-form` + `zod` for form handling and validation.
+
+2. Defined the form schema:
+
+```ts
+const schema = z.object({
+  startTime: z
+    .string()
+    .nonempty("Start time is required")
+    .refine((val) => new Date(val).getTime() > Date.now(), {
+      message: "Start time must be in the future",
+    }),
+  maxBookings: z.number().min(1, "Must allow at least 1 booking"),
+});
+```
+
+3. Integrated it with `useForm()` and the `useCreateSlot` mutation hook.
+
+4. UI form includes:
+- `startTime` field (datetime-local)
+- `maxBookings` field (number)
+- Error messages from validation
+- Submit and Clear buttons
+
+---
+
+## ❓ Why we did this:
+
+### react-hook-form
+- Efficient and performant form state management.
+- Reduces re-renders and boilerplate code.
+
+### zod
+- Declarative validation schema.
+- Works seamlessly with `react-hook-form` via `zodResolver`.
+
+### Admin Page Form
+- Allows creation of new slots by setting start time and max bookings.
+- Required for internal tools or admin UI access.
+
+---
+
+## 🛠 How it helps:
+
+- Reusable and type-safe form validation.
+- Server-side slot creation integrated with React Query mutation.
+- Form resets automatically after submit.
+
+---
+
+## 🧠 Developer Principles Applied:
+
+| Principle              | How                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| Form Abstraction       | Used schema-based validation with `zod`                            |
+| Declarative Validation | One source of truth for all field rules                            |
+| UX Feedback            | Inline errors + disable on submit state                            |
+| Code Reuse             | Schema + validation can be shared across client/server if needed   |
+
