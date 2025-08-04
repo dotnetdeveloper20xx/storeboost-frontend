@@ -58,13 +58,6 @@ Built using **React + Vite**, the app leverages **Tailwind CSS** for styling, **
 
 ---
 
-## 🧠 Built for Simplicity, Clarity, and Speed
-
-The app is optimized for fast development and smooth user interaction using the latest modern tooling in the frontend ecosystem. Designed to be scalable, testable, and intuitive for both new developers and users.
-
----
-
-
 # 📦 StoreBoost Request-Response Architecture 
 
 This document provides a detailed walkthrough of every API request, how it is handled in the frontend code, and how it fits into the broader architecture and developer principles of the StoreBoost React application.
