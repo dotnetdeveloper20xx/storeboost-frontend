@@ -454,3 +454,130 @@ features/slots/
 ---
 
 Designed for speed, clarity, modularity, and growth. This stack balances **modern simplicity** with **enterprise scalability**.
+
+
+
+# 🛠️ StoreBoost Handover & Setup Guide
+
+How to **clone, install, and run** both the frontend and backend applications on your local machine.
+
+---
+
+## 📁 Repositories
+
+| Component | Repository |
+|----------|------------|
+| Frontend (React + Vite) | [storeboost-frontend](https://github.com/dotnetdeveloper20xx/storeboost-frontend) |
+| Backend (ASP.NET Core API) | [StoreBoost](https://github.com/dotnetdeveloper20xx/StoreBoost) |
+
+---
+
+## ✅ Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+### For Backend (API):
+- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
+- [Visual Studio 2022+](https://visualstudio.microsoft.com/) or VS Code
+
+### For Frontend (React App):
+- [Node.js (v18+)](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) or [pnpm](https://pnpm.io/)
+- Git
+
+---
+
+## 🚀 Step-by-Step Setup
+
+---
+
+### 1. 🔄 Clone the Repositories
+
+```bash
+# Backend
+git clone https://github.com/dotnetdeveloper20xx/StoreBoost.git
+
+# Frontend
+git clone https://github.com/dotnetdeveloper20xx/storeboost-frontend.git
+```
+
+---
+
+### 2. ⚙️ Backend Setup
+
+1. Open `StoreBoost.sln` in Visual Studio.
+2. Set the startup project to `StoreBoost.Api`.
+3. Run the project. It should start the API at:
+
+```
+https://localhost:7009
+```
+
+5. You can test API endpoints via Swagger:
+
+```
+https://localhost:7009/swagger
+```
+
+---
+
+### 3. 🌐 Frontend Setup
+
+```bash
+cd storeboost-frontend
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+By default, the Vite dev server runs at:
+
+```
+http://localhost:5173
+```
+
+---
+
+### 4. 🔗 Connecting Frontend to Backend
+
+Ensure the API base URL inside the frontend code is correct:
+
+```ts
+const API_BASE = "https://localhost:7009/api";
+```
+
+The frontend uses this to communicate with the backend for:
+- Fetching appointment slots
+- Booking or canceling appointments
+- Admin slot creation
+
+---
+
+## 🧪 Testing
+
+### Frontend
+- Testing via React Testing Library (planned)
+- Devtools: Install React Query Devtools for inspecting query states
+
+### Backend
+- Unit/integration tests can be added in `StoreBoost.Tests` project
+
+---
+
+## 📦 Folder Highlights
+
+### Frontend
+
+| Folder | Purpose |
+|--------|---------|
+| `features/slots` | All UI, logic, and API for slot management |
+| `hooks/` | Custom hooks for fetching/mutating data |
+| `components/` | Reusable visual components |
+| `app/` | Global setup (store, query client) |
+
+---
+
+
